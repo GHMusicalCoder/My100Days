@@ -33,7 +33,7 @@ def print_top_20_list(the_list):
 
 if __name__ == '__main__':
     # our movie file is already local from day 5 exercise - so i'm just going to use that
-    movie_file = 'movies.csv'
+    movie_file = '../extra_files/movies.csv'
     directors = get_movies_by_director(movie_file)
     rated_list = rate_directors(directors)
     print_top_20_list(rated_list[:20])

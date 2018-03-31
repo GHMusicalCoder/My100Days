@@ -33,7 +33,7 @@ def get_movies_by_director(data):
 if __name__ == '__main__':
     # get the movie information local
     movie_location = 'https://raw.githubusercontent.com/pybites/challenges/solutions/13/movie_metadata.csv'
-    movie_file = 'movies.csv'
+    movie_file = '../extra_files/movies.csv'
     urlretrieve(movie_location, movie_file)
 
     directors = get_movies_by_director(movie_file)
