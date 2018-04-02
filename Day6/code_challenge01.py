@@ -27,6 +27,11 @@ def calc_word_value(word):
 
 
 def max_word_value(word_list):
+    """
+    take a given list and use the calc_word_value function to determine which word is worth the most
+    :param word_list: a list of words
+    :return: the word (or list of words if of equal value) that is the highest value of the list
+    """
     max_value = 0
     max_value_list = []
     for word in word_list:
