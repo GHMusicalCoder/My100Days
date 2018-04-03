@@ -47,7 +47,7 @@ print('-'*60)
 print('-'*60)
 
 # dictionary
-pybites = {'julian': 30, 'bob': 33, 'mike': 33}
+pybites = {'julian': 30, 'bob': [33, 40], 'mike': 33}
 
 print(pybites)
 
@@ -69,3 +69,6 @@ for values in pybites.values():
 
 for keys, values in pybites.items():
     print('Name: {0} - Age: {1}'.format(keys, values))
+
+for values in pybites['bob']:
+    print(values)
