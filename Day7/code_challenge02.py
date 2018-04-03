@@ -1,6 +1,11 @@
-from data import DICTIONARY, LETTER_SCORES, POUCH
 import random
-from  itertools import permutations, chain
+from itertools import permutations, chain
+import sys
+sys.path.append('/home/chris/PycharmProjects/My100Days/extra_files/')
+
+import my_100days_library as mylib
+
+DICTIONARY = set(mylib.load_words())
 
 
 def get_letters(count=7):
@@ -10,7 +15,7 @@ def get_letters(count=7):
     :return: a list of count letters
     """
     letters = []
-    our_pouch = POUCH
+    our_pouch = mylib.POUCH
     for _ in range(7):
         i = random.randint(0, len(our_pouch) - 1)
         letters.append(our_pouch.pop(i))
@@ -42,11 +47,7 @@ def calc_word_value(word):
     :param word: the word to calculate the value against
     :return: the value
     """
-    value = 0
-    for letter in word:
-        if letter != '-':
-            value += LETTER_SCORES[letter]
-    return value
+    return mylib.calc_word_value(word)
 
 
 def max_word_value(word_list):
@@ -55,26 +56,20 @@ def max_word_value(word_list):
     :param word_list: a list of words
     :return: the word (or list of words if of equal value) that is the highest value of the list
     """
-    max_value = 0
-    max_value_list = []
-    for word in word_list:
-        value = calc_word_value(word)
-        if value > max_value:
-            max_value = value
-            max_value_list = list()
-            max_value_list.append(word)
-        elif value == max_value:
-            max_value_list.append(word)
-
-    return max_value_list
+    return mylib.max_word_value(word_list)
 
 
 def get_possible_words(letters):
-    perms = list(permutations(letters, i) for i in range(4, len(letters)+1))
-    words = (''.join(p) for p in chain(*perms))
-    print(words)
-    matches = DICTIONARY.intersection(words)
-    print(matches)
+    n = len(letters)
+    word_list = set()
+
+    while n > 0:
+        perms = [''.join(i).lower() for i in permutations(letters, n)]
+        matches = DICTIONARY.intersection(perms)
+        word_list.update(matches)
+        n -= 1
+
+    return word_list
 
 
 def main():
@@ -85,8 +80,11 @@ def main():
         valid_word = test_word(user_word, letter_list)
     user_word_value = calc_word_value(user_word)
     print('Word chosen: {0} (value: {1})'.format(user_word, user_word_value))
-    get_possible_words([x.lower for x in letter_list])
+    max_value, max_list = max_word_value(get_possible_words(letter_list))
+    print('Optimal word(s) possible: {0} (value: {1})'.format(max_list, max_value))
+    print('You scored: {0:.1f}'.format((user_word_value / max_value) * 100))
+    print('-' * 60)
+    print('Thank you for playing!')
 
 
-if __name__ == '__main__':
-    main()
+main()

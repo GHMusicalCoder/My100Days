@@ -19,11 +19,7 @@ def calc_word_value(word):
     :param word: the word to calculate the value against
     :return: the value
     """
-    value = 0
-    for letter in word:
-        if letter != '-':
-            value += mylib.LETTER_VALUE[letter.upper()]
-    return value
+    return mylib.calc_word_value(word)
 
 
 def max_word_value(word_list):
@@ -32,25 +28,15 @@ def max_word_value(word_list):
     :param word_list: a list of words
     :return: the word (or list of words if of equal value) that is the highest value of the list
     """
-    max_value = 0
-    max_value_list = []
-    for word in word_list:
-        value = calc_word_value(word)
-        if value > max_value:
-            max_value = value
-            max_value_list = list()
-            max_value_list.append(word)
-        elif value == max_value:
-            max_value_list.append(word)
-
-    return max_value_list
+    return mylib.max_word_value(word_list)
 
 
 words = load_words()
 # print(len(words))
 # print(words[0])
 # print(words[-1])
-print(max_word_value(words))
+value, word_list = max_word_value(words)
+print('Max Value: {0}, Words: {1}'.format(value, word_list))
 
 
 
